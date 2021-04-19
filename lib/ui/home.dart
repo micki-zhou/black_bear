@@ -112,20 +112,36 @@ class _HomePageState extends State<HomePage> {
 
   // 头像、名字、个人资料入口
   Widget _mineView() {
-    return Row(
-      children: [
-        Container(
-          width: 35,
-          height: 35,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-                image: AssetImage('images/lufei.jpg'), fit: BoxFit.cover),
+    return Container(
+      margin: EdgeInsets.all(10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 35,
+                height: 35,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: AssetImage('images/lufei.jpg'), fit: BoxFit.cover),
+                ),
+                margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+              ),
+              Text(
+                'micki_zhou >',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              )
+            ],
           ),
-          margin: EdgeInsets.all(10),
-        ),
-        Text('micki_zhou >',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),)
-      ],
+          Image.asset(
+            'images/icon_scan.png',
+            width: 25,
+            height: 25,
+          )
+        ],
+      ),
     );
   }
 
