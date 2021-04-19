@@ -9,4 +9,6 @@ class MyColors {
   static Color text = Color(0xff181818);
   static Color homeTheme = Color(0xffd3d7d4);
   static Color background = Color(0xffebe9e9);
+  static Color line = Color(0xffd3d7d4);
+
 }

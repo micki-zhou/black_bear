@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:black_bear/config/my_colors.dart';
+import 'package:black_bear/ui/login.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -99,11 +100,13 @@ class _HomePageState extends State<HomePage> {
   Widget _drawer() {
     return Drawer(
       child: Container(
+        color: MyColors.background,
         padding:
             EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top, 0, 0),
         child: Column(
           children: [
             _mineView(),
+            _drawList(),
           ],
         ),
       ),
@@ -142,6 +145,191 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
+    );
+  }
+
+  // 侧边栏列表选项
+  Widget _drawList() {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5), color: MyColors.white),
+          margin: EdgeInsets.all(10),
+          child: Column(children: [
+            InkWell(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [Text('消息中心'), Text('>')],
+              ),
+              onTap: () {
+                print('消息中心');
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              color: MyColors.line,
+              height: 1,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            InkWell(
+                          child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [Text('云贝中心'), Text('>')],
+              ),
+              onTap: (){
+                print('云贝中心');
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              color: MyColors.line,
+              height: 1,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text('创作者中心'), Text('>')],
+            )
+          ]),
+        ),
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5), color: MyColors.white),
+          margin: EdgeInsets.all(10),
+          child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text('演出'), Text('>')],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              color: MyColors.line,
+              height: 1,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text('商城'), Text('>')],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              color: MyColors.line,
+              height: 1,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text('口袋彩铃'), Text('>')],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              color: MyColors.line,
+              height: 1,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text('游戏专区'), Text('>')],
+            )
+          ]),
+        ),
+        Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5), color: MyColors.white),
+          margin: EdgeInsets.all(10),
+          child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text('设置'), Text('>')],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              color: MyColors.line,
+              height: 1,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text('夜间模式'), Text('>')],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              color: MyColors.line,
+              height: 1,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text('我的客服'), Text('>')],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              color: MyColors.line,
+              height: 1,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text('关于'), Text('>')],
+            )
+          ]),
+        ),
+        Container(
+          margin: EdgeInsets.all(10),
+          // decoration: BoxDecoration(borderRadius:BorderRadius.circular(45)),
+          child: FlatButton(
+            onPressed: () {
+              // 退出登录
+              Navigator.pushAndRemoveUntil(context,
+                  MaterialPageRoute(builder: (context) {
+                return LoginPage();
+              }), (route) => false);
+            },
+            minWidth: double.infinity,
+            child: Text('log out'),
+            textColor: MyColors.theme,
+            color: MyColors.white,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          ),
+        ),
+      ],
     );
   }
 
