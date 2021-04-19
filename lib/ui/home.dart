@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:black_bear/config/my_colors.dart';
 import 'package:flutter/material.dart';
 
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -13,7 +12,7 @@ class _HomePageState extends State<HomePage> {
   Timer timer;
   PageController pageController;
   int index = 0;
-  // TODO 临时图片数据
+  // TODO banner 临时图片数据
   List<String> imageUrls = [
     'images/img_banner01.png',
     'images/img_banner02.png',
@@ -38,7 +37,7 @@ class _HomePageState extends State<HomePage> {
     '唱聊'
   ];
 
-  // TODO 临时数据
+  // TODO recommend 临时图片数据
   List<String> recommendSongSheetUrls = [
     'images/img_recommend01.jpeg',
     'images/img_recommend02.jpeg',
@@ -103,9 +102,30 @@ class _HomePageState extends State<HomePage> {
         padding:
             EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top, 0, 0),
         child: Column(
-          children: [Text("micki_zhou")],
+          children: [
+            _mineView(),
+          ],
         ),
       ),
+    );
+  }
+
+  // 头像、名字、个人资料入口
+  Widget _mineView() {
+    return Row(
+      children: [
+        Container(
+          width: 35,
+          height: 35,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+                image: AssetImage('images/lufei.jpg'), fit: BoxFit.cover),
+          ),
+          margin: EdgeInsets.all(10),
+        ),
+        Text('micki_zhou >',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),)
+      ],
     );
   }
 
