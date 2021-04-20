@@ -1,5 +1,4 @@
-import 'dart:async';
-
+import 'package:black_bear/config/event_bus.dart';
 import 'package:black_bear/config/my_colors.dart';
 import 'package:black_bear/ui/home/explore.dart';
 import 'package:black_bear/ui/home/mine.dart';
@@ -87,6 +86,27 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int bottomIndex = 0; // bottom navigation index
+  var isOpenDrawer = false;
+  var eventBusHome;
+
+  @override
+  void initState() {
+    super.initState();
+    eventBusHome = eventBus.on<EventDrawer>().listen((event) {
+      if (event.isOpen) {
+        setState(() {
+          isOpenDrawer = !isOpenDrawer;
+          Scaffold.of(context).openDrawer();
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    eventBusHome.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {

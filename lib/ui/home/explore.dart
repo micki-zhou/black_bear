@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:black_bear/config/event_bus.dart';
 import 'package:black_bear/config/my_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -127,7 +128,7 @@ class _ExplorePageState extends State<ExplorePage> {
       height: double.infinity,
       child: FlatButton(
           onPressed: () {
-            Scaffold.of(context).openDrawer();
+            eventBus.fire(EventDrawer(true));
           },
           child: Icon(
             Icons.menu,
