@@ -88,30 +88,24 @@ class _HomePageState extends State<HomePage> {
   int bottomIndex = 0; // bottom navigation index
   var isOpenDrawer = false;
   var eventBusHome;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    eventBusHome = eventBus.on<EventDrawer>().listen((event) {
-      if (event.isOpen) {
-        setState(() {
-          isOpenDrawer = !isOpenDrawer;
-          Scaffold.of(context).openDrawer();
-        });
-      }
-    });
   }
 
   @override
   void dispose() {
     super.dispose();
-    eventBusHome.cancel();
+    if (eventBusHome != null) eventBusHome.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: _drawer(),
+      key: scaffoldKey,
+      drawer: _drawer(context),
       backgroundColor: MyColors.background,
       bottomNavigationBar: BottomNavigationBar(
         items: bottomNavigationBarItem,
@@ -136,7 +130,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   // 抽屉
-  Widget _drawer() {
+  Widget _drawer(BuildContext context) {
+    eventBusHome = eventBus.on<EventDrawer>().listen((event) {
+      if (event.isOpen) {
+        scaffoldKey.currentState.openDrawer();
+      }
+    });
     return Drawer(
       child: Container(
         color: MyColors.background,
