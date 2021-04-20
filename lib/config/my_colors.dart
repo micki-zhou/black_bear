@@ -10,5 +10,5 @@ class MyColors {
   static Color homeTheme = Color(0xffd3d7d4);
   static Color background = Color(0xffebe9e9);
   static Color line = Color(0xffd3d7d4);
-
+  static Color gray = Color(0xffc0c0c0);
 }

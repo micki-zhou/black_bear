@@ -1,4 +1,4 @@
-import 'package:black_bear/ui/login.dart';
+import 'package:black_bear/ui/login/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {

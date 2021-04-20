@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:black_bear/config/my_colors.dart';
 import 'package:black_bear/model/particle_model.dart';
 import 'package:black_bear/model/particle_painter.dart';
-import 'package:black_bear/ui/register.dart';
+import 'package:black_bear/ui/login/register.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_animations/simple_animations/rendering.dart';
 
-import 'home.dart';
+import '../home/home.dart';
 
 class LoginPage extends StatefulWidget {
   final int numberOfParticles = 25;

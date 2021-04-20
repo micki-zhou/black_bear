@@ -1,24 +1,25 @@
 import 'dart:async';
 
 import 'package:black_bear/config/my_colors.dart';
-import 'package:black_bear/ui/login.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class ExplorePage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _ExplorePageState createState() => _ExplorePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ExplorePageState extends State<ExplorePage> {
   Timer timer;
   PageController pageController;
-  int index = 0;
+  int index = 0; // banner index
+
   // TODO banner 临时图片数据
   List<String> imageUrls = [
     'images/img_banner01.png',
     'images/img_banner02.png',
     'images/img_banner03.png'
   ];
+
   List<String> recommendUrls = [
     'images/icon_home_daily.png',
     'images/icon_home_music_list.png',
@@ -28,6 +29,7 @@ class _HomePageState extends State<HomePage> {
     'images/icon_home_album.png',
     'images/icon_home_chat.png'
   ];
+
   List<String> recommendStrs = [
     '每日推荐',
     '歌单',
@@ -81,8 +83,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: _drawer(),
-      backgroundColor: MyColors.background,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,204 +93,12 @@ class _HomePageState extends State<HomePage> {
           _recommendSongSheet()
         ],
       ),
+      
     );
   }
 
-  // 抽屉
-  Widget _drawer() {
-    return Drawer(
-      child: Container(
-        color: MyColors.background,
-        padding:
-            EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top, 0, 0),
-        child: Column(
-          children: [
-            _mineView(),
-            _drawList(),
-          ],
-        ),
-      ),
-    );
-  }
 
-  // 头像、名字、个人资料入口
-  Widget _mineView() {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 35,
-                height: 35,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      image: AssetImage('images/lufei.jpg'), fit: BoxFit.cover),
-                ),
-                margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-              ),
-              Text(
-                'micki_zhou >',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-          Image.asset(
-            'images/icon_scan.png',
-            width: 25,
-            height: 25,
-          )
-        ],
-      ),
-    );
-  }
-
-  // 侧边栏列表选项
-  Widget _drawList() {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5), color: MyColors.white),
-          margin: EdgeInsets.all(10),
-          child: Column(children: [
-            _drawerListClick('消息中心', 0),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(
-              color: MyColors.line,
-              height: 1,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            _drawerListClick('云贝中心', 1),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(
-              color: MyColors.line,
-              height: 1,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            _drawerListClick('创作者中心', 2)
-          ]),
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5), color: MyColors.white),
-          margin: EdgeInsets.all(10),
-          child: Column(children: [
-            _drawerListClick('演出', 3),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(
-              color: MyColors.line,
-              height: 1,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            _drawerListClick('商城', 4),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(
-              color: MyColors.line,
-              height: 1,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            _drawerListClick('口袋彩铃', 5),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(
-              color: MyColors.line,
-              height: 1,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            _drawerListClick('游戏专区', 6),
-          ]),
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5), color: MyColors.white),
-          margin: EdgeInsets.all(10),
-          child: Column(children: [
-            _drawerListClick('设置', 7),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(
-              color: MyColors.line,
-              height: 1,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            _drawerListClick('夜间模式', 8),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(
-              color: MyColors.line,
-              height: 1,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            _drawerListClick('我的客服', 9),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(
-              color: MyColors.line,
-              height: 1,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            _drawerListClick('关于', 10),
-          ]),
-        ),
-        Container(
-          margin: EdgeInsets.all(10),
-          // decoration: BoxDecoration(borderRadius:BorderRadius.circular(45)),
-          child: FlatButton(
-            onPressed: () {
-              // 退出登录
-              Navigator.pushAndRemoveUntil(context,
-                  MaterialPageRoute(builder: (context) {
-                return LoginPage();
-              }), (route) => false);
-            },
-            minWidth: double.infinity,
-            child: Text('log out'),
-            textColor: MyColors.theme,
-            color: MyColors.white,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          ),
-        ),
-      ],
-    );
-  }
-
-  // 顶部栏
+// 顶部栏
   Widget _topView(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top, 0, 0),
@@ -307,6 +115,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // 搜索框
+  Widget _searchView() {
+    return Container();
+  }
+
   // 菜单按钮
   Widget _menuButton(BuildContext context) {
     return ButtonTheme(
@@ -321,11 +134,6 @@ class _HomePageState extends State<HomePage> {
             // color: MyColors.balck,
           )),
     );
-  }
-
-  // 搜索框
-  Widget _searchView() {
-    return Container();
   }
 
   // banner
@@ -366,7 +174,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // 处理获取每日推荐列表
+// 处理获取每日推荐列表
   List<Widget> _getDailyRecommend() {
     List<Widget> result = List();
     for (var i = 0; i < recommendUrls.length; i++) {
@@ -486,73 +294,4 @@ class _HomePageState extends State<HomePage> {
     }
     return result;
   }
-}
-
-// 添加点击事件
-Widget _drawerListClick(String text, int type) {
-  return InkWell(
-    onTap: () {
-      switch (type) {
-        case 0:
-          {
-            print('消息中心click');
-            break;
-          }
-        case 1:
-          {
-            print('云贝中心click');
-            break;
-          }
-        case 2:
-          {
-            print('创作者中心click');
-            break;
-          }
-        case 3:
-          {
-            print('演出click');
-            break;
-          }
-        case 4:
-          {
-            print('商城click');
-            break;
-          }
-        case 5:
-          {
-            print('口袋彩铃click');
-            break;
-          }
-        case 6:
-          {
-            print('游戏专区click');
-            break;
-          }
-        case 7:
-          {
-            print('设置click');
-            break;
-          }
-        case 8:
-          {
-            print('夜间模式click');
-            break;
-          }
-        case 9:
-          {
-            print('我的客服click');
-            break;
-          }
-        case 10:
-          {
-            print('关于click');
-            break;
-          }
-      }
-    },
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [Text(text), Text('>')],
-    ),
-  );
 }
