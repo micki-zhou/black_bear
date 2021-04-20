@@ -158,15 +158,7 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(5), color: MyColors.white),
           margin: EdgeInsets.all(10),
           child: Column(children: [
-            InkWell(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('消息中心'), Text('>')],
-              ),
-              onTap: () {
-                print('消息中心');
-              },
-            ),
+            _drawerListClick('消息中心', 0),
             SizedBox(
               height: 10,
             ),
@@ -177,15 +169,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-            InkWell(
-                          child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('云贝中心'), Text('>')],
-              ),
-              onTap: (){
-                print('云贝中心');
-              },
-            ),
+            _drawerListClick('云贝中心', 1),
             SizedBox(
               height: 10,
             ),
@@ -196,10 +180,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('创作者中心'), Text('>')],
-            )
+            _drawerListClick('创作者中心', 2)
           ]),
         ),
         Container(
@@ -208,10 +189,7 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(5), color: MyColors.white),
           margin: EdgeInsets.all(10),
           child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('演出'), Text('>')],
-            ),
+            _drawerListClick('演出', 3),
             SizedBox(
               height: 10,
             ),
@@ -222,10 +200,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('商城'), Text('>')],
-            ),
+            _drawerListClick('商城', 4),
             SizedBox(
               height: 10,
             ),
@@ -236,10 +211,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('口袋彩铃'), Text('>')],
-            ),
+            _drawerListClick('口袋彩铃', 5),
             SizedBox(
               height: 10,
             ),
@@ -250,10 +222,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('游戏专区'), Text('>')],
-            )
+            _drawerListClick('游戏专区', 6),
           ]),
         ),
         Container(
@@ -262,10 +231,7 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(5), color: MyColors.white),
           margin: EdgeInsets.all(10),
           child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('设置'), Text('>')],
-            ),
+            _drawerListClick('设置', 7),
             SizedBox(
               height: 10,
             ),
@@ -276,10 +242,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('夜间模式'), Text('>')],
-            ),
+            _drawerListClick('夜间模式', 8),
             SizedBox(
               height: 10,
             ),
@@ -290,10 +253,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('我的客服'), Text('>')],
-            ),
+            _drawerListClick('我的客服', 9),
             SizedBox(
               height: 10,
             ),
@@ -304,10 +264,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text('关于'), Text('>')],
-            )
+            _drawerListClick('关于', 10),
           ]),
         ),
         Container(
@@ -529,4 +486,73 @@ class _HomePageState extends State<HomePage> {
     }
     return result;
   }
+}
+
+// 添加点击事件
+Widget _drawerListClick(String text, int type) {
+  return InkWell(
+    onTap: () {
+      switch (type) {
+        case 0:
+          {
+            print('消息中心click');
+            break;
+          }
+        case 1:
+          {
+            print('云贝中心click');
+            break;
+          }
+        case 2:
+          {
+            print('创作者中心click');
+            break;
+          }
+        case 3:
+          {
+            print('演出click');
+            break;
+          }
+        case 4:
+          {
+            print('商城click');
+            break;
+          }
+        case 5:
+          {
+            print('口袋彩铃click');
+            break;
+          }
+        case 6:
+          {
+            print('游戏专区click');
+            break;
+          }
+        case 7:
+          {
+            print('设置click');
+            break;
+          }
+        case 8:
+          {
+            print('夜间模式click');
+            break;
+          }
+        case 9:
+          {
+            print('我的客服click');
+            break;
+          }
+        case 10:
+          {
+            print('关于click');
+            break;
+          }
+      }
+    },
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [Text(text), Text('>')],
+    ),
+  );
 }
