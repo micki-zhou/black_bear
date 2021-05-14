@@ -294,7 +294,7 @@ class _HomePageState extends State<HomePage> {
               }), (route) => false);
             },
             minWidth: double.infinity,
-            child: Text('log out'),
+            child: Text('退出登录'),
             textColor: MyColors.theme,
             color: MyColors.white,
             shape:

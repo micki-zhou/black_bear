@@ -14,59 +14,23 @@ class _ExplorePageState extends State<ExplorePage> {
   PageController pageController;
   int index = 0; // banner index
 
-  // TODO banner 临时图片数据
-  List<String> imageUrls = [
-    'images/img_banner01.png',
-    'images/img_banner02.png',
-    'images/img_banner03.png'
-  ];
-
-  List<String> recommendUrls = [
-    'images/icon_home_daily.png',
-    'images/icon_home_music_list.png',
-    'images/icon_home_rank.png',
-    'images/icon_home_radio.png',
-    'images/icon_home_live.png',
-    'images/icon_home_album.png',
-    'images/icon_home_chat.png'
-  ];
-
-  List<String> recommendStrs = [
-    '每日推荐',
-    '歌单',
-    '排行榜',
-    '私人FM',
-    '直播',
-    '数字专辑',
-    '唱聊'
-  ];
-
-  // TODO recommend 临时图片数据
-  List<String> recommendSongSheetUrls = [
-    'images/img_recommend01.jpeg',
-    'images/img_recommend02.jpeg',
-    'images/img_recommend03.jpeg',
-    'images/img_recommend04.jpg',
-    'images/img_recommend05.jpg',
-    'images/img_recommend06.jpeg',
-  ];
-
-  List<String> recommendSongSheetStrs = [
-    '希望熬过孤独的你，能活成自己喜欢的模样',
-    '男生的温柔沁入心底 珊瑚长出海面 而你呢',
-    '痛彻心扉地哭，然后刻骨铭心的记住',
-    '后来你哭了，想安慰却忘了早已经没有了那个人',
-    '看小说听的歌曲（古风）',
-    '夜夜助你入眠',
-  ];
+  // TODO 临时数据
+  BannerData bannerData;
+  DailyRecommendData dailyRecommendData;
+  RecommendSongSheetData recommendSongSheetData;
 
   @override
   void initState() {
     super.initState();
+
+    bannerData = getBannerData();
+    dailyRecommendData = getDailyRecommendData();
+    recommendSongSheetData = getRecommendSongSheetdata();
+
     pageController = PageController(initialPage: 0);
     timer = Timer.periodic(const Duration(seconds: 3), (timer) {
       index++;
-      if (index > imageUrls.length - 1) {
+      if (index > bannerData.url.length - 1) {
         index = 0;
       }
       pageController.animateToPage(index,
@@ -91,7 +55,8 @@ class _ExplorePageState extends State<ExplorePage> {
           _topView(context),
           _homeBanner(),
           _dailyRecommend(),
-          _recommendSongSheet()
+          _recommendSongSheet(),
+          _similarRecommend(),
         ],
       ),
     );
@@ -150,7 +115,7 @@ class _ExplorePageState extends State<ExplorePage> {
   // 处理图片列表
   List<Widget> _getBannerImageWidget() {
     List<Widget> banners = new List();
-    for (String url in imageUrls) {
+    for (String url in bannerData.url) {
       banners.add(Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -168,7 +133,7 @@ class _ExplorePageState extends State<ExplorePage> {
         height: 100,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: recommendUrls.length,
+            itemCount: dailyRecommendData.data.length,
             itemBuilder: (BuildContext context, int index) {
               return _dailyRecommendItem(index);
             }));
@@ -195,7 +160,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 ),
               ),
               Image(
-                image: AssetImage(recommendUrls[index]),
+                image: AssetImage(dailyRecommendData.data[index].url),
                 height: 25,
                 width: 25,
                 color: MyColors.theme,
@@ -203,7 +168,7 @@ class _ExplorePageState extends State<ExplorePage> {
             ],
           ),
           Text(
-            recommendStrs[index],
+            dailyRecommendData.data[index].name,
             style: TextStyle(fontSize: 12),
           ),
         ],
@@ -214,7 +179,7 @@ class _ExplorePageState extends State<ExplorePage> {
   // 推荐歌单
   Widget _recommendSongSheet() {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10),
+      padding: EdgeInsets.only(left: 10, right: 10),
       child: Column(
         children: [
           Row(
@@ -244,7 +209,7 @@ class _ExplorePageState extends State<ExplorePage> {
             height: 200,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: recommendSongSheetUrls.length,
+              itemCount: recommendSongSheetData.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return _recommendSongSheetItem(index);
               },
@@ -257,37 +222,143 @@ class _ExplorePageState extends State<ExplorePage> {
 
   // 推荐歌单列表item
   Widget _recommendSongSheetItem(int index) {
-
     return GestureDetector(
-        child: Column(children: [
-          Stack(
+      child: Column(children: [
+        Stack(
+          children: [
+            Container(
+              height: 100,
+              width: 100,
+              margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    image: AssetImage(recommendSongSheetData.data[index].url),
+                    fit: BoxFit.cover),
+              ),
+            ),
+          ],
+        ),
+        Container(
+          width: 100,
+          child: Text(
+            recommendSongSheetData.data[index].name,
+            style: TextStyle(fontSize: 12),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ]),
+      onTap: () {
+        print("recommend song sheet click: $index");
+      },
+    );
+  }
+
+  // 相似推荐
+  Widget _similarRecommend() {
+    return Padding(
+      padding: EdgeInsets.only(left: 10, right: 10),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Text(
+                "相似推荐",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+              ),
               Container(
-                height: 100,
-                width: 100,
-                margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
+                padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                      image: AssetImage(recommendSongSheetUrls[index]),
-                      fit: BoxFit.cover),
+                    border: Border.all(width: 1, color: MyColors.homeTheme),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Text(
+                  "播放",
+                  style: TextStyle(
+                    fontSize: 13,
+                  ),
+                  textAlign: TextAlign.right,
                 ),
               ),
             ],
           ),
-          Container(
-            width: 100,
-            child: Text(
-              recommendSongSheetStrs[index],
-              style: TextStyle(fontSize: 12),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ]),
-        onTap: () {
-          print("recommend song sheet click: $index");
-        },
-      );
+          // Container(
+          //   height: 400,
+          //   child: GridView.builder(gridDelegate: null, itemBuilder: null),
+          // ),
+        ],
+      ),
+    );
+  }
+
+  // 临时数据组装 ----
+
+  // banner 数据
+  BannerData getBannerData() {
+    List<String> result = List();
+    result.add('images/img_banner01.png');
+    result.add('images/img_banner02.png');
+    result.add('images/img_banner03.png');
+
+    return BannerData(result);
+  }
+
+  // 每日推荐数据
+  DailyRecommendData getDailyRecommendData() {
+    List<ImageTextData> result = List();
+    result.add(ImageTextData('每日推荐', 'images/icon_home_daily.png'));
+    result.add(ImageTextData('歌单', 'images/icon_home_music_list.png'));
+    result.add(ImageTextData('排行榜', 'images/icon_home_rank.png'));
+    result.add(ImageTextData('私人FM', 'images/icon_home_radio.png'));
+    result.add(ImageTextData('直播', 'images/icon_home_live.png'));
+    result.add(ImageTextData('数字专辑', 'images/icon_home_album.png'));
+    result.add(ImageTextData('唱聊', 'images/icon_home_chat.png'));
+    return DailyRecommendData(result);
+  }
+
+  // 推荐歌单数据
+  RecommendSongSheetData getRecommendSongSheetdata() {
+    List<ImageTextData> result = List();
+    result.add(
+        ImageTextData('希望熬过孤独的你，能活成自己喜欢的模样', 'images/img_recommend01.jpeg'));
+    result.add(
+        ImageTextData('男生的温柔沁入心底 珊瑚长出海面 而你呢', 'images/img_recommend02.jpeg'));
+    result.add(ImageTextData('痛彻心扉地哭，然后刻骨铭心的记住', 'images/img_recommend03.jpeg'));
+    result.add(
+        ImageTextData('后来你哭了，想安慰却忘了早已经没有了那个人', 'images/img_recommend04.jpg'));
+    result.add(ImageTextData('看小说听的歌曲（古风）', 'images/img_recommend05.jpg'));
+    result.add(ImageTextData('夜夜助你入眠', 'images/img_recommend06.jpeg'));
+    return RecommendSongSheetData(result);
   }
 }
+
+// banner
+class BannerData {
+  List<String> url;
+  BannerData(this.url);
+}
+
+// daily recommend
+class DailyRecommendData {
+  List<ImageTextData> data;
+
+  DailyRecommendData(this.data);
+}
+
+// recommend song sheet
+class RecommendSongSheetData {
+  List<ImageTextData> data;
+
+  RecommendSongSheetData(this.data);
+}
+
+// image text
+class ImageTextData {
+  String name;
+  String url;
+  ImageTextData(this.name, this.url);
+}
+
+// 临时数据组装 ----
