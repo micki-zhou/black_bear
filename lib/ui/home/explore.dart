@@ -18,6 +18,7 @@ class _ExplorePageState extends State<ExplorePage> {
   BannerData bannerData;
   DailyRecommendData dailyRecommendData;
   RecommendSongSheetData recommendSongSheetData;
+  SimilarRecommendData similarRecommendData;
 
   @override
   void initState() {
@@ -26,6 +27,7 @@ class _ExplorePageState extends State<ExplorePage> {
     bannerData = getBannerData();
     dailyRecommendData = getDailyRecommendData();
     recommendSongSheetData = getRecommendSongSheetdata();
+    similarRecommendData = getSimilarRecommendData();
 
     pageController = PageController(initialPage: 0);
     timer = Timer.periodic(const Duration(seconds: 3), (timer) {
@@ -48,16 +50,18 @@ class _ExplorePageState extends State<ExplorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _topView(context),
-          _homeBanner(),
-          _dailyRecommend(),
-          _recommendSongSheet(),
-          _similarRecommend(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _topView(context),
+            _homeBanner(),
+            _dailyRecommend(),
+            _recommendSongSheet(),
+            _similarRecommend(),
+          ],
+        ),
       ),
     );
   }
@@ -210,7 +214,7 @@ class _ExplorePageState extends State<ExplorePage> {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: recommendSongSheetData.data.length,
-              itemBuilder: (BuildContext context, int index) {
+              itemBuilder: (context, index) {
                 return _recommendSongSheetItem(index);
               },
             ),
@@ -224,8 +228,6 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget _recommendSongSheetItem(int index) {
     return GestureDetector(
       child: Column(children: [
-        Stack(
-          children: [
             Container(
               height: 100,
               width: 100,
@@ -237,8 +239,6 @@ class _ExplorePageState extends State<ExplorePage> {
                     fit: BoxFit.cover),
               ),
             ),
-          ],
-        ),
         Container(
           width: 100,
           child: Text(
@@ -284,16 +284,47 @@ class _ExplorePageState extends State<ExplorePage> {
               ),
             ],
           ),
-          // Container(
-          //   height: 400,
-          //   child: GridView.builder(gridDelegate: null, itemBuilder: null),
-          // ),
+          Container(
+            height: 200,
+            child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 0.2),
+                scrollDirection: Axis.horizontal,
+                itemCount: similarRecommendData.data.length,
+                itemBuilder: (context, index) {
+                  return simalarRecommentItem(index);
+                }),
+          ),
         ],
       ),
     );
   }
 
-  // 临时数据组装 ----
+  // 相似推荐列表item
+  Widget simalarRecommentItem(int index) {
+    return GestureDetector(
+      child: Row(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              height: 50,
+              width: 50,
+              // margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    image: AssetImage(similarRecommendData.data[index].url),
+                    fit: BoxFit.cover),
+              ),
+            ),
+            Text('jijilsjfiejsljfeijfsijil')
+          ],
+        ),
+    );
+  }
+
+  // ---- 临时数据组装 ----
 
   // banner 数据
   BannerData getBannerData() {
@@ -325,14 +356,41 @@ class _ExplorePageState extends State<ExplorePage> {
         ImageTextData('希望熬过孤独的你，能活成自己喜欢的模样', 'images/img_recommend01.jpeg'));
     result.add(
         ImageTextData('男生的温柔沁入心底 珊瑚长出海面 而你呢', 'images/img_recommend02.jpeg'));
-    result.add(ImageTextData('痛彻心扉地哭，然后刻骨铭心的记住', 'images/img_recommend03.jpeg'));
+    result
+        .add(ImageTextData('痛彻心扉地哭，然后刻骨铭心的记住', 'images/img_recommend03.jpeg'));
     result.add(
         ImageTextData('后来你哭了，想安慰却忘了早已经没有了那个人', 'images/img_recommend04.jpg'));
     result.add(ImageTextData('看小说听的歌曲（古风）', 'images/img_recommend05.jpg'));
     result.add(ImageTextData('夜夜助你入眠', 'images/img_recommend06.jpeg'));
     return RecommendSongSheetData(result);
   }
+
+  // 相似推荐数据
+  SimilarRecommendData getSimilarRecommendData() {
+    List<SimilarData> result = List();
+    result.add(SimilarData('images/img_recommend02.jpeg', '夜曲', '-周杰伦', null));
+    result.add(SimilarData(
+        'images/img_recommend04.jpg', '只为你着迷', '-李秉成', '承蒙你的出现 让我学会了坚强'));
+    result.add(
+        SimilarData('images/img_recommend05.jpg', '我应该去爱你', '-李韩宇Yuzi', null));
+    result.add(
+        SimilarData('images/img_recommend01.jpeg', '不要忘记我爱你', '-张碧晨', null));
+    result.add(SimilarData('images/img_recommend06.jpeg', 'You Are Beautiful',
+        '-刘沁', '爱到了极致 你就是我的命'));
+    result.add(SimilarData(
+        'images/img_recommend02.jpeg', '路过爱情', '-梁又琳', '那年遇见你 便是倾心'));
+    result.add(SimilarData(
+        'images/img_recommend04.jpg', '追梦赤子心', '-Gala乐队', '命运掌握在自己手里'));
+    result.add(SimilarData(
+        'images/img_recommend02.jpeg', '慢慢喜欢你', '-莫文蔚', '怕你不够勇气 才说岁月蹉跎'));
+    result.add(SimilarData('images/img_recommend03.jpeg', '傻女', '-容祖儿', null));
+    result.add(
+        SimilarData('images/img_recommend05.jpg', '大哥', '-卫兰', '我要爱情不需要登对'));
+    return SimilarRecommendData(result);
+  }
 }
+
+// 相似推荐数据
 
 // banner
 class BannerData {
@@ -354,6 +412,12 @@ class RecommendSongSheetData {
   RecommendSongSheetData(this.data);
 }
 
+// similar recommend
+class SimilarRecommendData {
+  List<SimilarData> data;
+  SimilarRecommendData(this.data);
+}
+
 // image text
 class ImageTextData {
   String name;
@@ -361,4 +425,13 @@ class ImageTextData {
   ImageTextData(this.name, this.url);
 }
 
-// 临时数据组装 ----
+// similar data
+class SimilarData {
+  String url;
+  String name;
+  String author;
+  String shortWord;
+  SimilarData(this.url, this.name, this.author, this.shortWord);
+}
+
+// ---- 临时数据组装 ----
