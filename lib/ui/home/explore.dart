@@ -94,10 +94,8 @@ class _ExplorePageState extends State<ExplorePage> {
           _recommendSongSheet()
         ],
       ),
-      
     );
   }
-
 
 // 顶部栏
   Widget _topView(BuildContext context) {
@@ -167,53 +165,50 @@ class _ExplorePageState extends State<ExplorePage> {
   // 每日推荐列表
   Widget _dailyRecommend() {
     return Container(
-      height: 100,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: _getDailyRecommend(),
-      ),
-    );
+        height: 100,
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: recommendUrls.length,
+            itemBuilder: (BuildContext context, int index) {
+              return _dailyRecommendItem(index);
+            }));
   }
 
-// 处理获取每日推荐列表
-  List<Widget> _getDailyRecommend() {
-    List<Widget> result = List();
-    for (var i = 0; i < recommendUrls.length; i++) {
-      result.add(GestureDetector(
-        onTap: () {
-          print("recommend click: $i");
-        },
-        child: Column(
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: <Widget>[
-                Container(
-                  height: 50,
-                  width: 50,
-                  margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: MyColors.theme6,
-                    shape: BoxShape.circle,
-                  ),
+  // 每日推荐列表item
+  Widget _dailyRecommendItem(int index) {
+    return GestureDetector(
+      onTap: () {
+        print("recommend click2: $index");
+      },
+      child: Column(
+        children: [
+          Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Container(
+                height: 50,
+                width: 50,
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: MyColors.theme6,
+                  shape: BoxShape.circle,
                 ),
-                Image(
-                  image: AssetImage(recommendUrls[i]),
-                  height: 25,
-                  width: 25,
-                  color: MyColors.theme,
-                ),
-              ],
-            ),
-            Text(
-              recommendStrs[i],
-              style: TextStyle(fontSize: 12),
-            ),
-          ],
-        ),
-      ));
-    }
-    return result;
+              ),
+              Image(
+                image: AssetImage(recommendUrls[index]),
+                height: 25,
+                width: 25,
+                color: MyColors.theme,
+              ),
+            ],
+          ),
+          Text(
+            recommendStrs[index],
+            style: TextStyle(fontSize: 12),
+          ),
+        ],
+      ),
+    );
   }
 
   // 推荐歌单
@@ -247,9 +242,12 @@ class _ExplorePageState extends State<ExplorePage> {
           ),
           Container(
             height: 200,
-            child: ListView(
+            child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              children: _recommendSongSheetList(),
+              itemCount: recommendSongSheetUrls.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _recommendSongSheetItem(index);
+              },
             ),
           ),
         ],
@@ -257,11 +255,10 @@ class _ExplorePageState extends State<ExplorePage> {
     );
   }
 
-  // 推荐歌单列表
-  List<Widget> _recommendSongSheetList() {
-    List<Widget> result = List();
-    for (int i = 0; i < recommendSongSheetUrls.length; i++) {
-      result.add(GestureDetector(
+  // 推荐歌单列表item
+  Widget _recommendSongSheetItem(int index) {
+
+    return GestureDetector(
         child: Column(children: [
           Stack(
             children: [
@@ -272,7 +269,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                      image: AssetImage(recommendSongSheetUrls[i]),
+                      image: AssetImage(recommendSongSheetUrls[index]),
                       fit: BoxFit.cover),
                 ),
               ),
@@ -281,7 +278,7 @@ class _ExplorePageState extends State<ExplorePage> {
           Container(
             width: 100,
             child: Text(
-              recommendSongSheetStrs[i],
+              recommendSongSheetStrs[index],
               style: TextStyle(fontSize: 12),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -289,10 +286,8 @@ class _ExplorePageState extends State<ExplorePage> {
           ),
         ]),
         onTap: () {
-          print("recommend song sheet click: $i");
+          print("recommend song sheet click: $index");
         },
-      ));
-    }
-    return result;
+      );
   }
 }

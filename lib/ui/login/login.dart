@@ -129,7 +129,7 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
             controller: TextEditingController(text: accountText),
             decoration: InputDecoration(
               // labelText: 'please enter account',
-              hintText: "Please enter account",
+              hintText: "请输入账号",
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide.none),
@@ -156,7 +156,7 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
             },
             decoration: InputDecoration(
                 // labelText: 'please enter password',
-                hintText: "Please enter password",
+                hintText: "请输入密码",
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none),
@@ -178,7 +178,7 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           FlatButton(
-            child: Text('Sign up'),
+            child: Text('注册'),
             textColor: Colors.white,
             onPressed: () {
               // 跳转注册界面
@@ -198,7 +198,7 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
         padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
         child: Builder(builder: (BuildContext context) {
           return RaisedButton(
-            child: Text('Sign in'),
+            child: Text('登录'),
             color: MyColors.white,
             textColor: MyColors.text,
             onPressed: () {
@@ -211,11 +211,11 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
               }
 
               if (accountText.isEmpty) {
-                showsnackBar("Account cannot be empty");
+                showsnackBar("账号不能为空");
                 return;
               }
               if (passwordText.isEmpty) {
-                showsnackBar("Password cannot be empty");
+                showsnackBar("密码不能为空");
                 return;
               }
               if (accountText.isNotEmpty && passwordText.isNotEmpty) {
@@ -224,7 +224,7 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
                   return HomePage();
                 }), (route) => false);
               } else {
-                showsnackBar("Wrong account or password");
+                showsnackBar("账号或密码错误");
               }
             },
             shape:

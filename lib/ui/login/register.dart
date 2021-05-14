@@ -20,8 +20,8 @@ class _RegisterPageState extends State<RegisterPage>
   Animation<Offset> animation;
   Animation<double> slide;
 
-  String tipStr = "Hi , \nwhat name do you want ?";
-  String hintStr = "Please enter account";
+  String tipStr = "Hi , \n您想叫什么名字 ?";
+  String hintStr = "请输入账号";
 
   @override
   void initState() {
@@ -114,7 +114,7 @@ class _RegisterPageState extends State<RegisterPage>
                   Scaffold.of(context).showSnackBar(SnackBar(
                     backgroundColor: MyColors.tip,
                     duration: Duration(milliseconds: 1500),
-                    content: Text('Account cannot be empty'),
+                    content: Text('账号不能为空'),
                   ));
                 }
               },
@@ -149,7 +149,7 @@ class _RegisterNextState extends State<RegisterNext>
   CurvedAnimation curvedAnimation;
   Animation<Offset> animation;
   Animation<double> slide;
-  String tipStr = "Hi , \nwhat password do you want ?";
+  String tipStr = "Hi , \n您想设置什么密码 ?";
   String hintStr = "Please enter password";
 
   @override
@@ -251,7 +251,7 @@ class _RegisterNextState extends State<RegisterNext>
                   Scaffold.of(context).showSnackBar(SnackBar(
                     backgroundColor: MyColors.tip,
                     duration: Duration(milliseconds: 1500),
-                    content: Text('Password cannot be empty'),
+                    content: Text('密码不能为空'),
                   ));
                 }
               },
