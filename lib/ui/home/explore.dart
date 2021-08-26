@@ -108,7 +108,7 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget _homeBanner() {
     return Container(
       margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-      height: 150,
+      height: 180,
       child: PageView(
         controller: pageController,
         children: _getBannerImageWidget(),
@@ -228,17 +228,17 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget _recommendSongSheetItem(int index) {
     return GestureDetector(
       child: Column(children: [
-            Container(
-              height: 100,
-              width: 100,
-              margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    image: AssetImage(recommendSongSheetData.data[index].url),
-                    fit: BoxFit.cover),
-              ),
-            ),
+        Container(
+          height: 100,
+          width: 100,
+          margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+                image: AssetImage(recommendSongSheetData.data[index].url),
+                fit: BoxFit.cover),
+          ),
+        ),
         Container(
           width: 100,
           child: Text(
@@ -288,8 +288,7 @@ class _ExplorePageState extends State<ExplorePage> {
             height: 200,
             child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 0.2),
+                    crossAxisCount: 3, childAspectRatio: 0.2),
                 scrollDirection: Axis.horizontal,
                 itemCount: similarRecommendData.data.length,
                 itemBuilder: (context, index) {
@@ -305,22 +304,36 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget simalarRecommentItem(int index) {
     return GestureDetector(
       child: Row(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              height: 50,
-              width: 50,
-              // margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    image: AssetImage(similarRecommendData.data[index].url),
-                    fit: BoxFit.cover),
-              ),
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            height: 50,
+            width: 50,
+            margin: EdgeInsets.only(right: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                  image: AssetImage(similarRecommendData.data[index].url),
+                  fit: BoxFit.cover),
             ),
-            Text('jijilsjfiejsljfeijfsijil')
-          ],
-        ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                similarRecommendData.data[index].name,
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.start,
+              ),
+              Text(
+                similarRecommendData.data[index].shortWord,
+                style: TextStyle(fontSize: 12, color: MyColors.color_999999),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 
@@ -328,17 +341,18 @@ class _ExplorePageState extends State<ExplorePage> {
 
   // banner 数据
   BannerData getBannerData() {
-    List<String> result = List();
-    result.add('images/img_banner01.png');
-    result.add('images/img_banner02.png');
-    result.add('images/img_banner03.png');
+    var result = List<String>.empty(growable: true);
+    result.add('images/img_banner01.jpeg');
+    result.add('images/img_banner02.jpeg');
+    result.add('images/img_banner03.jpeg');
+    result.add('images/img_banner04.jpeg');
 
     return BannerData(result);
   }
 
   // 每日推荐数据
   DailyRecommendData getDailyRecommendData() {
-    List<ImageTextData> result = List();
+    var result = List<ImageTextData>.empty(growable: true);
     result.add(ImageTextData('每日推荐', 'images/icon_home_daily.png'));
     result.add(ImageTextData('歌单', 'images/icon_home_music_list.png'));
     result.add(ImageTextData('排行榜', 'images/icon_home_rank.png'));
@@ -351,7 +365,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
   // 推荐歌单数据
   RecommendSongSheetData getRecommendSongSheetdata() {
-    List<ImageTextData> result = List();
+    var result = List<ImageTextData>.empty(growable: true);
     result.add(
         ImageTextData('希望熬过孤独的你，能活成自己喜欢的模样', 'images/img_recommend01.jpeg'));
     result.add(
@@ -367,14 +381,15 @@ class _ExplorePageState extends State<ExplorePage> {
 
   // 相似推荐数据
   SimilarRecommendData getSimilarRecommendData() {
-    List<SimilarData> result = List();
-    result.add(SimilarData('images/img_recommend02.jpeg', '夜曲', '-周杰伦', null));
+    var result = List<SimilarData>.empty(growable: true);
+    result.add(
+        SimilarData('images/img_recommend02.jpeg', '夜曲', '-周杰伦', '那些年的经典歌曲'));
     result.add(SimilarData(
         'images/img_recommend04.jpg', '只为你着迷', '-李秉成', '承蒙你的出现 让我学会了坚强'));
-    result.add(
-        SimilarData('images/img_recommend05.jpg', '我应该去爱你', '-李韩宇Yuzi', null));
-    result.add(
-        SimilarData('images/img_recommend01.jpeg', '不要忘记我爱你', '-张碧晨', null));
+    result.add(SimilarData(
+        'images/img_recommend05.jpg', '我应该去爱你', '-李韩宇Yuzi', '情歌的魅力'));
+    result.add(SimilarData(
+        'images/img_recommend01.jpeg', '不要忘记我爱你', '-张碧晨', '请你不要忘记那些会议'));
     result.add(SimilarData('images/img_recommend06.jpeg', 'You Are Beautiful',
         '-刘沁', '爱到了极致 你就是我的命'));
     result.add(SimilarData(
@@ -383,7 +398,8 @@ class _ExplorePageState extends State<ExplorePage> {
         'images/img_recommend04.jpg', '追梦赤子心', '-Gala乐队', '命运掌握在自己手里'));
     result.add(SimilarData(
         'images/img_recommend02.jpeg', '慢慢喜欢你', '-莫文蔚', '怕你不够勇气 才说岁月蹉跎'));
-    result.add(SimilarData('images/img_recommend03.jpeg', '傻女', '-容祖儿', null));
+    result.add(
+        SimilarData('images/img_recommend03.jpeg', '傻女', '-容祖儿', '傻傻的我，傻傻的你'));
     result.add(
         SimilarData('images/img_recommend05.jpg', '大哥', '-卫兰', '我要爱情不需要登对'));
     return SimilarRecommendData(result);
