@@ -4,7 +4,7 @@ class MyColors {
   static Color theme = Color(0xffa80000);
   static Color theme6 = Color(0x0fa80000);
   static Color white = Color(0xffffffff);
-  static Color balck = Color(0x000000);
+  static Color balck = Color(0xff000000);
   static Color tip = Color(0xff303030);
   static Color text = Color(0xff181818);
   static Color homeTheme = Color(0xffd3d7d4);

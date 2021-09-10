@@ -1,7 +1,6 @@
 import 'package:black_bear/config/my_colors.dart';
 import 'package:flutter/material.dart';
 
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login.dart';
@@ -54,6 +53,7 @@ class _RegisterPageState extends State<RegisterPage>
       // ),
       backgroundColor: MyColors.theme,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _backLogin(context),
           Container(
@@ -103,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage>
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         Builder(builder: (BuildContext context) {
-          return FlatButton(
+          return TextButton(
               onPressed: () {
                 if (accountText.isNotEmpty) {
                   saveAccountValue();
@@ -111,19 +111,20 @@ class _RegisterPageState extends State<RegisterPage>
                     return RegisterNext();
                   }));
                 } else {
-                  Scaffold.of(context).showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     backgroundColor: MyColors.tip,
                     duration: Duration(milliseconds: 1500),
                     content: Text('账号不能为空'),
                   ));
                 }
               },
-              color: MyColors.white,
-              shape: CircleBorder(),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(MyColors.white),
+                  shape: MaterialStateProperty.all(CircleBorder())),
               child: Icon(
                 Icons.navigate_next,
                 color: MyColors.theme,
-                size: 50,
+                size: 30,
               ));
         })
       ],
@@ -183,6 +184,7 @@ class _RegisterNextState extends State<RegisterNext>
       // ),
       backgroundColor: MyColors.theme,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _backLogin(context),
           Container(
@@ -232,7 +234,7 @@ class _RegisterNextState extends State<RegisterNext>
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         Builder(builder: (BuildContext context) {
-          return FlatButton(
+          return TextButton(
               onPressed: () {
                 if (passwordText.isNotEmpty) {
                   savePasswordValue();
@@ -248,19 +250,20 @@ class _RegisterNextState extends State<RegisterNext>
                   // Navigator.of(context).pushAndRemoveUntil(LoginPage(), (Route<dynamic> route) => false);
 
                 } else {
-                  Scaffold.of(context).showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     backgroundColor: MyColors.tip,
                     duration: Duration(milliseconds: 1500),
                     content: Text('密码不能为空'),
                   ));
                 }
               },
-              color: MyColors.white,
-              shape: CircleBorder(),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(MyColors.white),
+                  shape: MaterialStateProperty.all(CircleBorder())),
               child: Icon(
                 Icons.navigate_next,
                 color: MyColors.theme,
-                size: 50,
+                size: 30,
               ));
         })
       ],
@@ -275,24 +278,19 @@ class _RegisterNextState extends State<RegisterNext>
 }
 
 Widget _backLogin(context) {
-  return Row(
-    children: [
-      ButtonTheme(
-        minWidth: 50,
-        child: FlatButton(
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-            onPressed: () {
-              Navigator.pushAndRemoveUntil(context,
-                  MaterialPageRoute(builder: (context) {
-                return LoginPage();
-              }), (route) => false);
-            },
-            child: Icon(
-              Icons.navigate_before,
-              size: 50,
-              color: MyColors.white,
-            )),
+  return TextButton(
+      onPressed: () {
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context) {
+          return LoginPage();
+        }), (route) => false);
+      },
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all(EdgeInsets.fromLTRB(20, 40, 0, 0))
       ),
-    ],
-  );
+      child: Icon(
+        Icons.navigate_before,
+        size: 50,
+        color: MyColors.white,
+      ));
 }

@@ -71,12 +71,10 @@ class _ExplorePageState extends State<ExplorePage> {
     return Container(
       padding: EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top, 0, 0),
       color: MyColors.homeTheme,
-      height: 70,
+      height: 90,
       child: Row(
         children: [
-          Builder(builder: (BuildContext context) {
-            return _menuButton(context);
-          }),
+          _menuButton(),
           _searchView(),
         ],
       ),
@@ -89,19 +87,15 @@ class _ExplorePageState extends State<ExplorePage> {
   }
 
   // 菜单按钮
-  Widget _menuButton(BuildContext context) {
-    return ButtonTheme(
-      minWidth: 50,
-      height: double.infinity,
-      child: FlatButton(
-          onPressed: () {
-            eventBus.fire(EventDrawer(true));
-          },
-          child: Icon(
-            Icons.menu,
-            // color: MyColors.balck,
-          )),
-    );
+  Widget _menuButton() {
+    return TextButton(
+        onPressed: () {
+          eventBus.fire(EventDrawer(true));
+        },
+        child: Icon(
+          Icons.menu,
+          color: MyColors.balck,
+        ));
   }
 
   // banner
@@ -118,7 +112,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
   // 处理图片列表
   List<Widget> _getBannerImageWidget() {
-    List<Widget> banners = new List();
+    List<Widget> banners = [];
     for (String url in bannerData.url) {
       banners.add(Container(
         decoration: BoxDecoration(

@@ -6,10 +6,6 @@ import 'package:black_bear/model/particle_painter.dart';
 import 'package:black_bear/ui/login/register.dart';
 import 'package:flutter/material.dart';
 
-
-
-
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_animations/simple_animations/rendering.dart';
 
@@ -177,9 +173,10 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text('注册'),
-            textColor: Colors.white,
+            style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all(MyColors.white)),
             onPressed: () {
               // 跳转注册界面
               Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -197,13 +194,14 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
     return Padding(
         padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
         child: Builder(builder: (BuildContext context) {
-          return RaisedButton(
+          return TextButton(
             child: Text('登录'),
-            color: MyColors.white,
-            textColor: MyColors.text,
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(MyColors.white),
+                foregroundColor: MaterialStateProperty.all(MyColors.text)),
             onPressed: () {
               void showsnackBar(String msg) {
-                Scaffold.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   backgroundColor: MyColors.tip,
                   duration: Duration(milliseconds: 1500),
                   content: Text(msg),
@@ -227,8 +225,8 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
                 showsnackBar("账号或密码错误");
               }
             },
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            // shape:
+            //     RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           );
         }));
   }

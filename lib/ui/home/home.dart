@@ -283,9 +283,10 @@ class _HomePageState extends State<HomePage> {
           ]),
         ),
         Container(
+          width: double.infinity,
           margin: EdgeInsets.all(10),
           // decoration: BoxDecoration(borderRadius:BorderRadius.circular(45)),
-          child: FlatButton(
+          child: TextButton(
             onPressed: () {
               // 退出登录
               Navigator.pushAndRemoveUntil(context,
@@ -293,12 +294,12 @@ class _HomePageState extends State<HomePage> {
                 return LoginPage();
               }), (route) => false);
             },
-            minWidth: double.infinity,
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all(MyColors.theme),
+              backgroundColor: MaterialStateProperty.all(MyColors.white),
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+            ),
             child: Text('退出登录'),
-            textColor: MyColors.theme,
-            color: MyColors.white,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           ),
         ),
       ],
