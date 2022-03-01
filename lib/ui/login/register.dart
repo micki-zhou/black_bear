@@ -1,3 +1,10 @@
+/*
+ * @Author: micki 
+ * @Date: 2022-03-01 17:36:47 
+ * @Last Modified by: micki
+ * @Last Modified time: 2022-03-01 17:38:20
+ * @Desc: 注册页面
+ */
 import 'package:black_bear/config/my_colors.dart';
 import 'package:flutter/material.dart';
 

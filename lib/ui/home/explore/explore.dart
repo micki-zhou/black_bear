@@ -1,8 +1,17 @@
+/*
+ * @Author: micki 
+ * @Date: 2022-03-01 17:35:37 
+ * @Last Modified by: micki
+ * @Last Modified time: 2022-03-01 17:36:11
+ * @Desc: 发现页面
+ */
+
 import 'dart:async';
 
 import 'package:black_bear/config/event_bus.dart';
 import 'package:black_bear/config/my_colors.dart';
 import 'package:flutter/material.dart';
+
 
 class ExplorePage extends StatefulWidget {
   @override

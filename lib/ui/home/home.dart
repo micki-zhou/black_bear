@@ -1,13 +1,20 @@
+/*
+ * @Author: micki 
+ * @Date: 2022-03-01 17:35:23 
+ * @Last Modified by: micki
+ * @Last Modified time: 2022-03-01 17:37:06
+ * @Desc: 首页
+ */
+
 import 'package:black_bear/config/event_bus.dart';
 import 'package:black_bear/config/my_colors.dart';
-import 'package:black_bear/ui/home/explore.dart';
+import 'package:black_bear/ui/home/explore/explore.dart';
 import 'package:black_bear/ui/home/mine.dart';
 import 'package:black_bear/ui/home/podcast.dart';
 import 'package:black_bear/ui/home/sing.dart';
 import 'package:black_bear/ui/home/group.dart';
 import 'package:black_bear/ui/login/login.dart';
 import 'package:flutter/material.dart';
-
 
 class HomePage extends StatefulWidget {
   @override
